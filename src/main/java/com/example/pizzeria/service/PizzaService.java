@@ -28,6 +28,14 @@ public class PizzaService {
         return this.pizzaRepository.findById(idPizza).orElse(null);
     }
 
+    public PizzaEntity save(PizzaEntity pizza){
+        return this.pizzaRepository.save(pizza);
+    }
+
+    public boolean exist(int idPizza){
+        return this.pizzaRepository.existsById(idPizza);
+    }
+
     //version 1
 //    private final JdbcTemplate jdbcTemplate;
 //
