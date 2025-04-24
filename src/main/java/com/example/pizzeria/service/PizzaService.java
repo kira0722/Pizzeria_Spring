@@ -40,6 +40,14 @@ public class PizzaService {
         this.pizzaRepository.deleteById(idPizza);
     }
 
+    public List<PizzaEntity> getAvailable(){
+        return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+    }
+
+    public PizzaEntity getByName(String name){
+        return this.pizzaRepository.findAllByAvailableTrueAndNameIgnoreCase(name);
+    }
+
     //version 1
 //    private final JdbcTemplate jdbcTemplate;
 //
