@@ -36,6 +36,10 @@ public class PizzaService {
         return this.pizzaRepository.existsById(idPizza);
     }
 
+    public void delete(int idPizza){
+        this.pizzaRepository.deleteById(idPizza);
+    }
+
     //version 1
 //    private final JdbcTemplate jdbcTemplate;
 //
