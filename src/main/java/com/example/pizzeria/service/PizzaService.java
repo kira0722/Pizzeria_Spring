@@ -2,28 +2,40 @@ package com.example.pizzeria.service;
 
 
 import com.example.pizzeria.persistence.entity.PizzaEntity;
+import com.example.pizzeria.persistence.repository.PizzaPagSortRepository;
 import com.example.pizzeria.persistence.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PizzaService {
 
     private final PizzaRepository pizzaRepository;
+    private final PizzaPagSortRepository pizzaPagSortRepository;
 
     @Autowired
-    public PizzaService(PizzaRepository pizzaRepository) {
+    public PizzaService(PizzaRepository pizzaRepository, PizzaPagSortRepository pizzaPagSortRepository) {
         this.pizzaRepository = pizzaRepository;
+        this.pizzaPagSortRepository = pizzaPagSortRepository;
     }
 
-    public List<PizzaEntity> getAll(){
-        return this.pizzaRepository.findAll();
+    public Page<PizzaEntity> getAll(int page, int elements){
+        Pageable pageRequest = PageRequest.of(page, elements);
+        return this.pizzaPagSortRepository.findAll(pageRequest);
     }
+
+
+    //getall version 1
+//    public List<PizzaEntity> getAll(){
+//        return this.pizzaRepository.findAll();
+//    }
 
     public PizzaEntity get(int idPizza){
         return this.pizzaRepository.findById(idPizza).orElse(null);

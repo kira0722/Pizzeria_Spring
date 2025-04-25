@@ -3,6 +3,7 @@ package com.example.pizzeria.web.controller;
 
 import com.example.pizzeria.persistence.entity.PizzaEntity;
 import com.example.pizzeria.service.PizzaService;
+import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,17 @@ public class PizzaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PizzaEntity>> getAll(){
-        return ResponseEntity.ok(this.pizzaService.getAll());
+    public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "8") int elements){
+        return ResponseEntity.ok(pizzaService.getAll(page, elements));
     }
+
+
+    //getAll version 1
+//    @GetMapping
+//    public ResponseEntity<List<PizzaEntity>> getAll(){
+//        return ResponseEntity.ok(this.pizzaService.getAll());
+//    }
 
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza){
@@ -82,8 +91,9 @@ public class PizzaController {
         return ResponseEntity.ok(this.pizzaService.getWithout(ingredient));
     }
 
-        @GetMapping("/cheapest/{price}")
+    @GetMapping("/cheapest/{price}")
     public ResponseEntity<List<PizzaEntity>> getCheastpest(@PathVariable double price){
         return ResponseEntity.ok(pizzaService.getCheastpest(price));
     }
+
 }
