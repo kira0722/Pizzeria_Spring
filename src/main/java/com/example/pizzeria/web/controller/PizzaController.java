@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pizzas")
@@ -66,6 +67,11 @@ public class PizzaController {
         return ResponseEntity.ok(pizzaService.getByName(name));
     }
 
+    @GetMapping("/firstName/{name}")
+    public ResponseEntity<PizzaEntity> getFirstByName(@PathVariable String name){
+        return ResponseEntity.ok(pizzaService.GetFirstByname(name));
+    }
+
     @GetMapping("/with/{ingredient}")
     public ResponseEntity<List<PizzaEntity>> getWith(@PathVariable String ingredient) {
         return ResponseEntity.ok(this.pizzaService.getWith(ingredient));
@@ -74,5 +80,10 @@ public class PizzaController {
     @GetMapping("/without/{ingredient}")
     public ResponseEntity<List<PizzaEntity>> getWithout(@PathVariable String ingredient) {
         return ResponseEntity.ok(this.pizzaService.getWithout(ingredient));
+    }
+
+        @GetMapping("/cheapest/{price}")
+    public ResponseEntity<List<PizzaEntity>> getCheastpest(@PathVariable double price){
+        return ResponseEntity.ok(pizzaService.getCheastpest(price));
     }
 }

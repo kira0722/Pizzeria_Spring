@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PizzaService {
@@ -49,12 +50,20 @@ public class PizzaService {
         return this.pizzaRepository.findAllByAvailableTrueAndNameIgnoreCase(name);
     }
 
+    public PizzaEntity GetFirstByname(String name){
+        return this.pizzaRepository.findFirstByAvailableTrueAndNameIgnoreCase(name).orElseThrow(() -> new RuntimeException("la Pizza no existe"));
+    }
+
     public List<PizzaEntity> getWith(String ingredient) {
         return this.pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
     }
 
     public List<PizzaEntity> getWithout(String ingredient) {
         return this.pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
+    }
+
+    public List<PizzaEntity> getCheastpest(double price){
+        return this.pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
     }
 
     //version 1
