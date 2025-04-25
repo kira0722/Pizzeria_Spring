@@ -3,6 +3,7 @@ package com.example.pizzeria.web.controller;
 
 import com.example.pizzeria.persistence.entity.PizzaEntity;
 import com.example.pizzeria.service.PizzaService;
+import com.example.pizzeria.service.dto.UpdatePizzaPriceDto;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -106,5 +107,16 @@ public class PizzaController {
     public ResponseEntity<List<PizzaEntity>> getCheastpest(@PathVariable double price){
         return ResponseEntity.ok(pizzaService.getCheastpest(price));
     }
+
+    @PutMapping("/price")
+    public ResponseEntity<Void> updatePrice(@RequestBody UpdatePizzaPriceDto dto){
+        if (this.pizzaService.exist(dto.getPizzaId())){
+            this.pizzaService.updatePrice(dto);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+
 
 }
