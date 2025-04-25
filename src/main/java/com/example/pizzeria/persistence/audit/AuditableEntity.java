@@ -1,4 +1,4 @@
-package com.example.pizzeria.persistence.entity;
+package com.example.pizzeria.persistence.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;

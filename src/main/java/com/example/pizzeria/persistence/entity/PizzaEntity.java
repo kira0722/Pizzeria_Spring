@@ -1,21 +1,22 @@
 package com.example.pizzeria.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.example.pizzeria.persistence.audit.AuditPizzaListener;
+import com.example.pizzeria.persistence.audit.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "pizza")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, AuditPizzaListener.class})
 @Getter
 @Setter
 @NoArgsConstructor
-public class PizzaEntity extends AuditableEntity{
+public class PizzaEntity extends AuditableEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +41,17 @@ public class PizzaEntity extends AuditableEntity{
     @Column(columnDefinition = "TINYINT", nullable = false)
     private Boolean available;
 
+
+    @Override
+    public String toString() {
+        return "PizzaEntity{" +
+                "idPizza=" + idPizza +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", vegetarian=" + vegetarian +
+                ", vegan=" + vegan +
+                ", available=" + available +
+                '}';
+    }
 }
