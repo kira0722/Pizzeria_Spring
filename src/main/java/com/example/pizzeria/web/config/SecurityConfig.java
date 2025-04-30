@@ -35,23 +35,25 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-    @Bean
-    public UserDetailsService memoryUsers(){
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
 
-        UserDetails customer = User.builder()
-                .username("customer")
-                .password(passwordEncoder().encode("customer"))
-                .roles("CUSTOMER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, customer);
-
-    }
+    //se comenta porque ya no es necesario por lo establecido en el servicio de userSecurityService
+//    @Bean
+//    public UserDetailsService memoryUsers(){
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        UserDetails customer = User.builder()
+//                .username("customer")
+//                .password(passwordEncoder().encode("customer"))
+//                .roles("CUSTOMER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(admin, customer);
+//
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
