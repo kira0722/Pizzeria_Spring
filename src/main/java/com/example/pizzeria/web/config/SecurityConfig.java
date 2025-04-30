@@ -28,6 +28,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/api/pizzas/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
                                 .requestMatchers("/api/orders/**").hasRole("ADMIN")
+                                .requestMatchers("/api/orders/random").hasAuthority("random_order")
                                 .anyRequest()
                                 .authenticated())
                 .httpBasic(Customizer.withDefaults());
