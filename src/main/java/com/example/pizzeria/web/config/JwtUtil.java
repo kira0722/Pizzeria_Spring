@@ -38,7 +38,7 @@ public class JwtUtil {
 
     }
 
-    public String getUsernamme(String jwt){
+    public String getUsername(String jwt){
         return JWT.require(ALGORITHM)
                 .build()
                 .verify(jwt)
